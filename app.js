@@ -30,12 +30,13 @@ class Player {
 const values = ["A","1","2","3","4","5","6","7","8","9","10","J","Q","K"];
 const suits = ["D","H","C","S"];
 
-/* Empty array for creating deck*/
+/* Empty array for creating deck and player hands*/
 let deck = [];
 
+
 /* Assign HTML elements to variables */
-const playerYHand = document.querySelector("#hand-Y")
-const playerXHand = document.querySelector("#hand-X") 
+const playerY = document.querySelector("#hand-Y")
+const playerX = document.querySelector("#hand-X") 
 const centerDeck = document.querySelector("#centerDeck")
 const slapButton = document.querySelector("#slapButton")
 const drawButton = document.querySelector("#drawButton")
@@ -60,7 +61,12 @@ function shuffleDeck(deck){
 }
 
 deck = shuffleDeck(deck)
-console.log(deck)
+
+/* Deal hands to players by splitting shuffled deck array in half */
+let playerYHand = deck.slice(0, 27);
+let playerXHand = deck.slice(28, 55);
+
+console.log(playerYHand, playerXHand)
 /*
 Start/Reset
 
