@@ -75,3 +75,20 @@ Slap Mechanic!
 Win Conditions 
 
 - All 52 cards are in one players hands
+
+// 
+
+
+const test = [1,2,3,4,5,6,7];
+
+const arrShuffle = (arr) => {
+    const newIdx = Math.floor(Math.random()*arr.length);
+    const shuffled = [];
+    for (var i = 0; i < arr.length; i++) {
+        shuffled.splice(newIdx, 0, arr[i]);
+    }
+
+    return shuffled;
+}
+
+arrShuffle(test);

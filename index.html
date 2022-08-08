@@ -9,10 +9,51 @@
         <link rel="stylesheet" href="main.css">
         <script src="app.js" async defer></script>
     </head>
+   
     <body>
+    <div class="game-container" id="game-container">
         <div class="title">
-            <h1></h1>
+            <h1>Let's Play Ratscrew</h1>
         </div>
+        
+        <div class="ContainerY">
+            <div class="FacecardY">
+                <p class="FaceCardYA">FaceCardA</p>
+                <p class="FaceCardYB">FaceCardB</p>
+                <p class="FaceCardYC">FaceCardC</p>
+                <p class="FaceCardYD">FaceCardD</p>
+                
+            </div>
+            <p class="YHand" id="YHand">Player Y Hand</p>
+        </div>
+   
+        <div class="CenterRow" id="CenterRow">
+        <div class="CurrentPlayer" id="CurrentPlayer">
+            <p>Current Player</p>
+        </div>
+        <div class="ContainerDeck">
+            <p class="CenterDeck" id="CenterDeck">Center Deck
+            </p>
+        </div>
+        <div class="GameStatus" id="GameStatus">
+            <p>Slap Status</p>
+        </div>
+        </div>
+        
 
+        
+        <div class="ContainerX">
+            <button Class ="SlapButton" ID="SlapBbutton"></button>
+            <p class="XHand" id="XHand">Player X Hand</p>
+            <button Class ="DrawButton" ID="DrawBbutton"></button>
+            <div class="FacecardX">
+                <p class="FaceCardXA">FaceCardA</p>
+                <p class="FaceCardXB">FaceCardB</p>
+                <p class="FaceCardXC">FaceCardC</p>
+                <p class="FaceCardXD">FaceCardD</p>
+            </div>  
+        </div>
+      
+    </div>
     </body>
 </html>
