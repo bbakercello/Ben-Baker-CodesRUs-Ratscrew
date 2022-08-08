@@ -26,14 +26,20 @@ class Player {
 }
 
 
-/* Create variables for card information */
+/* Create variables for card types */
 const values = ["A","1","2","3","4","5","6","7","8","9","10","J","Q","K"];
 const suits = ["D","H","C","S"];
+
+/* Empty array for creating deck*/
 let deck = [];
 
+/* Assign HTML elements to variables */
+const playerYHand = document.querySelector("#hand-Y")
+const playerXHand = document.querySelector("#hand-X") 
+const centerDeck = document.querySelector("#centerDeck")
 
 /* Create Player functions within player class 
-    (Draw, Draw-Face, Start Game, Create Deck, Shuffle Deck) */
+    (createDeck, Draw, Draw-Face, Start Game, Create Deck, Shuffle Deck) */
 
 function createDeck() {
     for(let ix=0; ix<suits.length; ix++){
