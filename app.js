@@ -22,23 +22,30 @@ class Player {
         this.player = player
         this.hand = hand
     }
-    draw ()
+    // draw ()
 }
 
-class Card {
-    constructor (value, suit){
-    this.value = value
-    this.suit = suit
-    }
+
+/* Create variables for card information */
+const values = ["A","1","2","3","4","5","6","7","8","9","10","J","Q","K"];
+const suits = ["D","H","C","S"];
+let deck = [];
+
+
+/* Create Player functions within player class 
+    (Draw, Draw-Face, Start Game, Create Deck, Shuffle Deck) */
+
+function createDeck() {
+    for(let ix=0; ix<suits.length; ix++){
+        for(let iy=0; iy<values.length; iy++){
+        deck.push(suits[ix] + '-' + values[iy])
+        }
+    }return deck
 }
+console.log(createDeck())
 
 
 /*
-- Create Player functions within player class 
-    Draw, Draw-Face, and Slap
-
-
-
 Start/Reset
 
 - Create a Start/Restart Game function which randmizes the deck 
@@ -109,4 +116,4 @@ const arrShuffle = (arr) => {
     return shuffled;
 }
 
-arrShuffle(test);
+*/
