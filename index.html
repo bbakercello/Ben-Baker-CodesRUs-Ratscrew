@@ -22,45 +22,51 @@
 
       <div class="game-container" id="game-container">
         <div class="title">
-            <h1>Let's Play Ratscrew</h1>
+            <h1>Let's Play <br> Ratscrew</h1>
         </div>
         
         <div class="container-Y">
-            <div class="facecard-Y">
-                <p class="faceCard-Y-A">FaceCard-A</p>
-                <p class="faceCard-Y-B">FaceCard-B</p>
-                <p class="faceCard-Y-C">FaceCard-C</p>
-                <p class="faceCard-Y-D">FaceCard-D</p>
-                
+            <div class="faceCard-Y-flex">
+                <p class="card-Y"ID ="faceCard-Y-A">FaceCard-A</p>
+                <p class="card-Y"ID ="faceCard-Y-B">FaceCard-B</p>
+                <p class="card-Y"ID ="hand-Y" >Player-Y Hand</p>
+                <p class="card-Y"ID ="faceCard-Y-C">FaceCard-C</p>
+                <p class="card-Y"ID ="faceCard-Y-D">FaceCard-D</p>
             </div>
-            <p class="hand-Y" id="hand-Y">Player Y Hand</p>
+            
         </div>
    
-        <div class="container-centerRow" id="container-centerRow">
-        <div class="currentPlayer" id="currentPlayer">
-            <p>Current Player</p>
+    <div class="container-centerRow" id="container-centerRow">
+        <div class="centerRow-flex">
+             <div class="currentPlayer" id="currentPlayer">
+                <p>Current Player</p>
+             </div>
+            <div class="containerDeck">
+                <p class="card-center"ID ="centerDeck" >Center Deck
+                </p>
+            </div>
+            <div class="gameStatus" id="gameStatus">
+                <p>Slap Status</p>
+            </div>
         </div>
-        <div class="containerDeck">
-            <p class="centerDeck" id="centerDeck">Center Deck
-            </p>
-        </div>
-        <div class="gameStatus" id="gameStatus">
-            <p>Slap Status</p>
-        </div>
-        </div>
+    </div>
         
         <div class="container-X">
-            <button Class ="slapButton" ID="slapBbutton"></button>
-            <p class="hand-X" id="hand-X">Player X Hand</p>
-            <button Class ="drawButton" ID="drawBbutton"></button>
-            <div class="facecard-X">
-                <p class="faceCard-X-A">FaceCardA</p>
-                <p class="faceCard-X-B">FaceCardB</p>
-                <p class="faceCard-X-C">FaceCardC</p>
-                <p class="faceCard-X-D">FaceCardD</p>
+            <div class="faceCard-X-flex">
+                <p class="card-X"ID ="faceCard-X-A">FaceCard-A</p>
+                <p class="card-X"ID ="faceCard-X-B">FaceCard-B</p>
+                <p class="card-X"ID ="hand-X" >Player-X Hand</p>
+                <p class="card-X"ID ="faceCard-X-C">FaceCard-C</p>
+                <p class="card-X"ID ="faceCard-X-D">FaceCard-D</p>
             </div>  
         </div>
-      
+
+    <div class="buttons" id="buttons">
+        <div class="buttons-flex">
+        <button Class ="slapButton" ID="slapBbutton"></button>
+        <button Class ="drawButton" ID="drawBbutton"></button>
+         </div>
+    </div>  
     </div>
     </body>
 </html>

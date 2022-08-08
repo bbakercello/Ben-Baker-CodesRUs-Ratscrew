@@ -2,29 +2,121 @@ body{
     font-family: 'Space Mono', monospace;
     background-image: url('https://i.imgur.com/WfRfrO7.png');
     background-repeat: repeat;
+   
 
 }
 
 .game-container {
     display:grid;
-    grid-template-rows: 3fr 3fr 3fr 3fr;
+    grid-template-rows: 3fr 3fr 3fr 3fr 1.5fr;
     grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+    height: 100%;
+    width: 100%;
+    border-style: solid;
+    border-color: red;
 }
 
 .container-Y {
     grid-row: 2;
-    grid-column: 1
+    grid-column: 1 / span 5;
+    margin: 5px;
+    border-style: solid;
+    border-color: red;
+}
+
+.faceCard-Y-flex {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-direction: row;
+    margin: 5px;
+    border-style: solid;
+    border-color: red;
+
 }
 
 
 .container-centerRow {
     grid-row: 3;
-    grid-column: 1
+    grid-column: 1 / span 5;
+    margin: 5px;
+    border-style: solid;
+    border-color: red;
 
+}
+
+.centerRow-flex {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-direction: row;
+    margin: 5px;
+    border-style: solid;
+    border-color: red;
 }
 
 .container-X {
     grid-row: 4;
-    grid-column: 1
+    grid-column: 1 / span 5;
+    margin: 5px;
+    border-style: solid;
+    border-color: red;
 }
 
+.faceCard-X-flex {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-direction: row;
+    margin: 5px 5px 0 5px;
+    border-style: solid;
+    border-color: red;
+
+}
+
+.buttons {
+    grid-row: 5;
+    grid-column: 1 / span 5;
+    margin: 5px;
+    padding: 30px;
+    border-style: solid;
+    border-color: red;
+}
+
+.buttons-flex {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-direction: row;
+    align-items: stretch;
+    border-style: solid;
+    border-color: red;
+}
+
+.slapButton {
+    width: 30px;
+    height: 30px;
+}
+
+.drawButton {
+    width: 30px;
+    height: 30px;
+}
+
+.card-X {
+    height: 150px;
+    width: 112.5px;
+    background: RGB(65 137 128);
+}
+
+.card-Y {
+    height: 150px;
+    width: 112.5px;
+    background: RGB(113 90 93);
+}
+
+.card-center {
+    height: 150px;
+    width: 112.5px;
+    background: RGB(27 5 43);
+}

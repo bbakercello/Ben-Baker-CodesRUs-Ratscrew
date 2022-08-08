@@ -16,8 +16,26 @@ Players
 - Create a Player class that accepts Player (X or Y) as paramters
 as well as a randomized hand (two player arrays, will create later)
 
+*/
+class Player {
+    constructor (player, hand){
+        this.player = player
+        this.hand = hand
+    }
+    draw ()
+}
+
+class Card {
+    constructor (value, suit){
+    this.value = value
+    this.suit = suit
+    }
+}
+
+
+/*
 - Create Player functions within player class 
-    Draw, (Draw Face?), and Slap
+    Draw, Draw-Face, and Slap
 
 
 
