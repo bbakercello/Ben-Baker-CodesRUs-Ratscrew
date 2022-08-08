@@ -37,20 +37,30 @@ let deck = [];
 const playerYHand = document.querySelector("#hand-Y")
 const playerXHand = document.querySelector("#hand-X") 
 const centerDeck = document.querySelector("#centerDeck")
+const slapButton = document.querySelector("#slapButton")
+const drawButton = document.querySelector("#drawButton")
+const gameStatus = document.querySelector("#gameStatus")
+const currentPlayer = document.querySelector("#currentPlayer")
 
 /* Create Player functions within player class 
-    (createDeck, Draw, Draw-Face, Start Game, Create Deck, Shuffle Deck) */
+    (createDeck, Draw, Draw-Face, Start Game, Shuffle Deck) */
 
+/* createDeck function pulls from two arrays to create one deck array*/
 function createDeck() {
     for(let ix=0; ix<suits.length; ix++){
         for(let iy=0; iy<values.length; iy++){
         deck.push(suits[ix] + '-' + values[iy])
         }
-    }return deck
+    }return (deck)
+}console.log(createDeck())
+
+function shuffleDeck(deck){
+    deck.sort(() => Math.random() - 0.5);
+    return deck
 }
-console.log(createDeck())
 
-
+deck = shuffleDeck(deck)
+console.log(deck)
 /*
 Start/Reset
 
