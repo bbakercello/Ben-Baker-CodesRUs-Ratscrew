@@ -103,18 +103,20 @@ function resetGame(){
 
 /* Create draw function referring to player hands 
  */
-function draw(player){
-    centerPile.push(player[player.length - 1]);
-    player.pop(); 
+function draw(playerHand){
+    centerPile.push(playerHand[playerHand.length - 1]);
+    playerHand.pop(); 
     console.log(centerPile)
-    console.log(player)
-return player, centerPile
+    console.log(playerHand)
+return playerHand, centerPile
 }
 
 function drawPlayerX(){
+   if(currentPlayer === "playerX") {
     draw(playerXHand)
+    return currentPlayer = "playerY"
 }
-
+}
 /* Assign buttons to Draw and Reset functions by addEventListener()
 */
 drawXButton.addEventListener("click", drawPlayerX)
@@ -122,6 +124,7 @@ resetButton.addEventListener("click",resetGame)
 
 
 /* Create a timer and callback function for determining computer move
+   -Also intiatalizes computer draw
 */
 
 let ticks = 5
@@ -138,30 +141,23 @@ function timerFunction(){
     console.log(ticks)
     if(ticks === 0){
         clearInterval(interval);
-        currentPlayer = playerY
+        draw(playerYHand)
+        currentPlayer = "playerX"
+        console.log(currentPlayer)
+        return currentPlayer
+    }
+    else {
+        currentPlayer = "playerY"
     }
     return ticks
 }
 
 
 
-/* Call draw function using playerYHand as variable*/
-if (currentPlayer === playerY){
-    draw(playerYHand)
-}
-
-
-/*
-Card Classes
-
-- Create a Number Card Class which accepts a number and suit as its paramter
-
-- Create a Face Card class which accepts a Face type  and suit as its parameter
-    Within the class, create a Face Function that accepts the face type (as a number)
-    as the paramter
 
 
 
+/* 
 
 Functions
 
