@@ -73,6 +73,7 @@ function shuffleDeck(deck){
 let playerYHand = deck.slice(0, 26);
 let playerXHand = deck.slice(26, 52);
 
+
 /* Reset the game with resetGame
    - refers to above functions
  */
@@ -81,23 +82,29 @@ function resetGame(){
     createDeck();
     shuffleDeck(deck);
     console.log(deck)
-    return deck
+    playerYHand = deck.slice(0, 26);
+    playerXHand = deck.slice(26, 52);
+    console.log(playerYHand)
+    return deck, playerYHand, playerXHand;
 }
+
 
 
 /* Create draw function referring to player hands 
  */
-function draw(playerXY){
-centerPile.push(playerXY[playerXY.length - 1])
-playerXY.pop() 
-return playerXY, centerPile
+function drawPlayerY(){
+    centerPile.push(playerYHand[playerYHand.length - 1]);
+    playerYHand.pop(); 
+    console.log(centerPile)
+    console.log(playerYHand)
+return playerYHand, centerPile
 }
 
 
 
 /* Assign buttons to Draw and Reset functions by addEventListener()
 */
-
+drawButton.addEventListener("click", drawPlayerY)
 resetButton.addEventListener("click",resetGame)
 
 /*Start/Reset
