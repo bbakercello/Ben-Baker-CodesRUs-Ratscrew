@@ -36,14 +36,15 @@ let centerPile = [];
 
 
 /* Assign HTML elements to variables */
-const playerYDom = document.querySelector("#hand-Y");
-const playerXDom = document.querySelector("#hand-X");
-const centerDeck = document.querySelector("#centerDeck");
-const slapButton = document.querySelector("#slapButton");
-const drawButton = document.querySelector("#drawButton");
-const gameStatus = document.querySelector("#gameStatus");
-const currentPlayer = document.querySelector("#currentPlayer");
+const playerYDom = document.getElementById("hand-Y");
+const playerXDom = document.getElementById("hand-X");
+const centerDeck = document.getElementById("centerDeck");
+const slapButton = document.getElementById("slapButton");
+const drawButton = document.getElementById("drawButton");
+const gameStatus = document.getElementById("gameStatus");
+const currentPlayer = document.getElementById("currentPlayer");
 const resetButton = document.getElementById("resetButton");
+
 
 /* Make the deck
    - Create functions for making a deck 
@@ -68,19 +69,20 @@ function shuffleDeck(deck){
 
 // }
 
+/* Deal hands to players by splitting shuffled deck array in half */
+let playerYHand = deck.slice(0, 26);
+let playerXHand = deck.slice(26, 52);
+
 /* Reset the game with resetGame
    - refers to above functions
  */
 function resetGame(){
+    deck = []
     createDeck();
     shuffleDeck(deck);
+    console.log(deck)
     return deck
 }
-console.log(resetGame())
-
-/* Deal hands to players by splitting shuffled deck array in half */
-let playerYHand = deck.slice(0, 26);
-let playerXHand = deck.slice(26, 52);
 
 
 /* Create draw function referring to player hands 
@@ -95,8 +97,8 @@ return playerXY, centerPile
 
 /* Assign buttons to Draw and Reset functions by addEventListener()
 */
-console.log(resetButton)
-resetButton.addEventListener("click",resetGame())
+
+resetButton.addEventListener("click",resetGame)
 
 /*Start/Reset
 
