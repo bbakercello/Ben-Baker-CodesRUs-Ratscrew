@@ -1,18 +1,5 @@
 //Pseudo Code for Project 1
 
-
-/* 
-
-HTML -
-
-- Make basic layout with title, center play-pile, 
-    player hands, face card templates, empty alert boxes
-
-
-Javscript -
-
-
-
 /* Create variables for card types */
 const values = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
 const suits = ["D","H","C","S"];
@@ -20,6 +7,7 @@ const suits = ["D","H","C","S"];
 /* Empty array for creating deck and player hands*/
 let deck = [];
 let centerPile = [];
+let match = false
 
 /* Assign HTML elements to variables */
 const playerYDom = document.getElementById("hand-Y");
@@ -48,8 +36,6 @@ class Card {
         this.identity = identity
     }
 }
-
-
 
 /* Deal hands to players by splitting shuffled deck array in half */
 let playerYHand = deck.slice(0, 26);
@@ -109,17 +95,19 @@ for(let ix=0; ix<deck.length;ix++){
  */
 function draw(playerHand){
     centerPile.push(playerHand.pop());
-    playerHand.pop(); 
     console.log(centerPile)
     console.log(playerHand)
     if(centerPile.length >=2){
         if(centerPile[centerPile.length-1].charAt(2) === centerPile[centerPile.length-2].charAt(2)){ 
-        console.log('yes, exact match value')
+        match = true
         }
         else if(centerPile[centerPile.length-1].charAt(0)=== centerPile[centerPile.length-2].charAt(0)){
-            console.log('yes, exact suit match')
+            match = true
         }
+        else{
+            match = false
     }
+}
 }
 
 function drawPlayerX(){
@@ -133,12 +121,13 @@ function drawPlayerX(){
 */
 drawXButton.addEventListener("click", drawPlayerX)
 resetButton.addEventListener("click",resetGame)
+// slapButton.addEventListener("")
+
 
 
 /* Create a timer and callback function for determining computer move
    -Also intiatalizes computer draw
 */
-
 let ticks = 6
 let interval 
 
@@ -165,62 +154,25 @@ function timerFunction(){
     return ticks
 }
 
-
-
-/* Compare values in the center pile array
-*/
-
-/* Slap mode */
-
-
-
-
-
-
-/*Functions
-
-- Create Function for Winning a round which will transfer the corresponding card
-    number from the center array to the corresponding player's hand array
-
-
-- "If" statements that compare cards within the Draw function
-    - If two simultaneous or sandwiched cards are drawn, a timer function
-     is initiated
-    - If a face card is drawn, the Draw Face function is initliazed
-
-- "If" statements focus in on array integer and class information 
-    - (for example - centerPileArray[i].number would be the number of the card )
-
-
-
-
-Slap Mechanic!
-
- - Create this timer which counts down from 1 second. If either player
-    slaps before the timer runs out, that player receives the whole center pile
-
-- Assign the slap to spacebar to a function (Slap())
-
-
-
-
-Win Conditions 
-
-- All 52 cards are in one players hands
-
-// 
-
-
-const test = [1,2,3,4,5,6,7];
-
-const arrShuffle = (arr) => {
-    const newIdx = Math.floor(Math.random()*arr.length);
-    const shuffled = [];
-    for (var i = 0; i < arr.length; i++) {
-        shuffled.splice(newIdx, 0, arr[i]);
+document.addEventListener('keyup', event => {
+    if (event.code === 'Space') {
+      if(match === true){
+        console.log('win cards');
+        playerXHand.push(playerYHand.pop());
+        shuffleDeck(playerXHand);
+      }
+      if(match === false)
+        console.log('lose cards');
+        playerYHand.push(playerXHand.pop());
+        shuffleDeck(playerYHand);
+        console.log(playerYHand)
+        console.log(playerXHand)
     }
+  })
 
-    return shuffled;
-}
-
-*/
+  if(playerXHand.length === 52){
+    console.log('You win!')
+  }
+  if(playerYHand.length === 52){
+    console.log('You lose!')
+  }
