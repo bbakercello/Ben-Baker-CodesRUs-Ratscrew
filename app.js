@@ -20,7 +20,6 @@ const suits = ["D","H","C","S"];
 /* Empty array for creating deck and player hands*/
 let deck = [];
 let centerPile = [];
-let slapMode = false
 
 /* Assign HTML elements to variables */
 const playerYDom = document.getElementById("hand-Y");
@@ -42,8 +41,15 @@ class Player {
         this.player = player
         this.hand = hand
     }
-    // draw (hand)
 }
+
+class Card {
+    constructor (identity){
+        this.identity = identity
+    }
+}
+
+
 
 /* Deal hands to players by splitting shuffled deck array in half */
 let playerYHand = deck.slice(0, 26);
@@ -77,13 +83,6 @@ function shuffleDeck(deck){
     return deck
 } 
 
-// function clearBoard(){
-
-// }
-
-
-
-
 /* Reset the game with resetGame
    - refers to above functions
  */
@@ -96,24 +95,31 @@ function resetGame(){
     playerYHand = deck.slice(0, 26);
     playerXHand = deck.slice(26, 52);
     console.log(playerXHand)
-    return deck, playerYHand, playerXHand;
-}
+    console.log(playerYHand)
 
+/* assign entire deck to individual class instances */
+for(let ix=0; ix<deck.length;ix++){
+    deck[ix] = new Card(deck[ix])
+}
+    return deck;
+}
 
 
 /* Create draw function referring to player hands 
  */
 function draw(playerHand){
-    centerPile.push(playerHand[playerHand.length - 1]);
+    centerPile.push(playerHand.pop());
     playerHand.pop(); 
     console.log(centerPile)
     console.log(playerHand)
-    
     if(centerPile.length >=2){
-        slapMode = true
-        console.log(slapMode) 
+        if(centerPile[centerPile.length-1].charAt(2) === centerPile[centerPile.length-2].charAt(2)){ 
+        console.log('yes, exact match value')
+        }
+        else if(centerPile[centerPile.length-1].charAt(0)=== centerPile[centerPile.length-2].charAt(0)){
+            console.log('yes, exact suit match')
+        }
     }
-return playerHand, centerPile
 }
 
 function drawPlayerX(){
@@ -122,6 +128,7 @@ function drawPlayerX(){
     return currentPlayer = "playerY", centerPile
 }
 }
+
 /* Assign buttons to Draw and Reset functions by addEventListener()
 */
 drawXButton.addEventListener("click", drawPlayerX)
@@ -132,7 +139,7 @@ resetButton.addEventListener("click",resetGame)
    -Also intiatalizes computer draw
 */
 
-let ticks = 5
+let ticks = 6
 let interval 
 
 drawXButton.addEventListener('click',function (){
@@ -153,6 +160,7 @@ function timerFunction(){
     }
     else {
         currentPlayer = "playerY"
+        console.log(currentPlayer)
     }
     return ticks
 }
@@ -162,9 +170,9 @@ function timerFunction(){
 /* Compare values in the center pile array
 */
 
-if (slapMode === true){
+/* Slap mode */
 
-}
+
 
 
 
