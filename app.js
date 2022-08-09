@@ -36,45 +36,69 @@ let centerPile = [];
 
 
 /* Assign HTML elements to variables */
-const playerYDom = document.querySelector("#hand-Y")
-const playerXDom = document.querySelector("#hand-X") 
-const centerDeck = document.querySelector("#centerDeck")
-const slapButton = document.querySelector("#slapButton")
-const drawButton = document.querySelector("#drawButton")
-const gameStatus = document.querySelector("#gameStatus")
-const currentPlayer = document.querySelector("#currentPlayer")
+const playerYDom = document.querySelector("#hand-Y");
+const playerXDom = document.querySelector("#hand-X");
+const centerDeck = document.querySelector("#centerDeck");
+const slapButton = document.querySelector("#slapButton");
+const drawButton = document.querySelector("#drawButton");
+const gameStatus = document.querySelector("#gameStatus");
+const currentPlayer = document.querySelector("#currentPlayer");
+const resetButton = document.getElementById("resetButton");
 
-/* Create Player functions within player class 
-    (createDeck, Draw, Draw-Face, Start Game, Shuffle Deck) */
+/* Make the deck
+   - Create functions for making a deck 
+  - createDeck() function pulls from two arrays to create one deck array
+  - shuffleDeck uses .sort() by a range of [-.5, .5) to randomly sort the array */
 
-/* createDeck function pulls from two arrays to create one deck array*/
 function createDeck() {
     for(let ix=0; ix<suits.length; ix++){
         for(let iy=0; iy<values.length; iy++){
         deck.push(suits[ix] + '-' + values[iy])
         }
-    }return (deck)
-}console.log(createDeck())
+    }return deck
+    
+    }
 
 function shuffleDeck(deck){
     deck.sort(() => Math.random() - 0.5);
     return deck
-}
-deck = shuffleDeck(deck)
-console.log(deck)
-function draw(){
+} 
 
+// function clearBoard(){
+
+// }
+
+/* Reset the game with resetGame
+   - refers to above functions
+ */
+function resetGame(){
+    createDeck();
+    shuffleDeck(deck);
+    return deck
 }
+console.log(resetGame())
 
 /* Deal hands to players by splitting shuffled deck array in half */
 let playerYHand = deck.slice(0, 26);
 let playerXHand = deck.slice(26, 52);
 
-console.log(playerYHand, playerXHand)
+
+/* Create draw function referring to player hands 
+ */
+function draw(playerXY){
+centerPile.push(playerXY[playerXY.length - 1])
+playerXY.pop() 
+return playerXY, centerPile
+}
 
 
-/*
-Start/Reset
+
+/* Assign buttons to Draw and Reset functions by addEventListener()
+*/
+console.log(resetButton)
+resetButton.addEventListener("click",resetGame())
+
+/*Start/Reset
 
 - Create a Start/Restart Game function which randmizes the deck 
     (a hidden array) into two player arrays
