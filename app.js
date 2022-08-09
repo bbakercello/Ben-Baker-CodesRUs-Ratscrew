@@ -20,7 +20,7 @@ const suits = ["D","H","C","S"];
 /* Empty array for creating deck and player hands*/
 let deck = [];
 let centerPile = [];
-
+let slapMode = false
 
 /* Assign HTML elements to variables */
 const playerYDom = document.getElementById("hand-Y");
@@ -108,13 +108,18 @@ function draw(playerHand){
     playerHand.pop(); 
     console.log(centerPile)
     console.log(playerHand)
+    
+    if(centerPile.length >=2){
+        slapMode = true
+        console.log(slapMode) 
+    }
 return playerHand, centerPile
 }
 
 function drawPlayerX(){
    if(currentPlayer === "playerX") {
     draw(playerXHand)
-    return currentPlayer = "playerY"
+    return currentPlayer = "playerY", centerPile
 }
 }
 /* Assign buttons to Draw and Reset functions by addEventListener()
@@ -154,12 +159,17 @@ function timerFunction(){
 
 
 
+/* Compare values in the center pile array
+*/
+
+if (slapMode === true){
+
+}
 
 
 
-/* 
 
-Functions
+/*Functions
 
 - Create Function for Winning a round which will transfer the corresponding card
     number from the center array to the corresponding player's hand array
