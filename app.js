@@ -11,20 +11,7 @@ HTML -
 
 Javscript -
 
-Players
 
-- Create a Player class that accepts Player (X or Y) as paramters
-as well as a randomized hand (two player arrays, will create later)
-
-*/
-class Player {
-    constructor (player, hand){
-        this.player = player
-        this.hand = hand
-    }
-    // draw ()
-}
-let player
 
 /* Create variables for card types */
 const values = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
@@ -40,12 +27,37 @@ const playerYDom = document.getElementById("hand-Y");
 const playerXDom = document.getElementById("hand-X");
 const centerDeck = document.getElementById("centerDeck");
 const slapButton = document.getElementById("slapButton");
-const drawButton = document.getElementById("drawButton");
+const drawXButton = document.getElementById("drawXButton");
 const gameStatus = document.getElementById("gameStatus");
-const currentPlayer = document.getElementById("currentPlayer");
+const currentPlayerDom = document.getElementById("currentPlayer");
 const resetButton = document.getElementById("resetButton");
 
+/*Players
+- Create a Player class that accepts Player (X or Y) as paramters
+as well as a randomized hand (two player arrays, will create later)
+*/
 
+class Player {
+    constructor (player, hand){
+        this.player = player
+        this.hand = hand
+    }
+    // draw (hand)
+}
+
+/* Deal hands to players by splitting shuffled deck array in half */
+let playerYHand = deck.slice(0, 26);
+let playerXHand = deck.slice(26, 52);
+
+let playerX = new Player ('playerX', playerXHand);
+let playerY = new Player ('playerY', playerYHand);
+
+/* Create variables for currentPlayer
+*/
+let currentPlayer = null
+if(currentPlayer === null){
+    currentPlayer = playerX
+}
 /* Make the deck
    - Create functions for making a deck 
   - createDeck() function pulls from two arrays to create one deck array
@@ -69,22 +81,21 @@ function shuffleDeck(deck){
 
 // }
 
-/* Deal hands to players by splitting shuffled deck array in half */
-let playerYHand = deck.slice(0, 26);
-let playerXHand = deck.slice(26, 52);
+
 
 
 /* Reset the game with resetGame
    - refers to above functions
  */
 function resetGame(){
-    deck = []
+    deck = [];
+    centerPile = [];
     createDeck();
     shuffleDeck(deck);
     console.log(deck)
     playerYHand = deck.slice(0, 26);
     playerXHand = deck.slice(26, 52);
-    console.log(playerYHand)
+    console.log(playerXHand)
     return deck, playerYHand, playerXHand;
 }
 
@@ -92,31 +103,55 @@ function resetGame(){
 
 /* Create draw function referring to player hands 
  */
-function drawPlayerY(){
-    centerPile.push(playerYHand[playerYHand.length - 1]);
-    playerYHand.pop(); 
+function draw(player){
+    centerPile.push(player[player.length - 1]);
+    player.pop(); 
     console.log(centerPile)
-    console.log(playerYHand)
-return playerYHand, centerPile
+    console.log(player)
+return player, centerPile
+}
+
+function drawPlayerX(){
+    draw(playerXHand)
+}
+
+/* Assign buttons to Draw and Reset functions by addEventListener()
+*/
+drawXButton.addEventListener("click", drawPlayerX)
+resetButton.addEventListener("click",resetGame)
+
+
+/* Create a timer and callback function for determining computer move
+*/
+
+let ticks = 5
+let interval 
+
+drawXButton.addEventListener('click',function (){
+    ticks = 5
+    clearInterval(interval);
+    interval = setInterval(timerFunction, 500);
+    })
+
+function timerFunction(){
+    ticks--
+    console.log(ticks)
+    if(ticks === 0){
+        clearInterval(interval);
+        currentPlayer = playerY
+    }
+    return ticks
 }
 
 
 
-/* Assign buttons to Draw and Reset functions by addEventListener()
-*/
-drawButton.addEventListener("click", drawPlayerY)
-resetButton.addEventListener("click",resetGame)
-
-/*Start/Reset
-
-- Create a Start/Restart Game function which randmizes the deck 
-    (a hidden array) into two player arrays
-
-- The arrays are lists of class instances
-    - (for example - "4OfHearts" would be a instance of the Number class)
+/* Call draw function using playerYHand as variable*/
+if (currentPlayer === playerY){
+    draw(playerYHand)
+}
 
 
-
+/*
 Card Classes
 
 - Create a Number Card Class which accepts a number and suit as its paramter
@@ -133,9 +168,6 @@ Functions
 - Create Function for Winning a round which will transfer the corresponding card
     number from the center array to the corresponding player's hand array
 
-- Draw function moves a number from one array into the center play array and initializes
-    compare booleans 
-    - changes contents of center play pile to reflect the drawn card values
 
 - "If" statements that compare cards within the Draw function
     - If two simultaneous or sandwiched cards are drawn, a timer function
