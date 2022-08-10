@@ -54,7 +54,7 @@ let playerY = new Player ('playerY', playerYHand);
 let currentPlayer = null
 if(currentPlayer === null){
     currentPlayer = playerX
-}
+}console.log(currentPlayer)
 /* Make the deck
    - Create functions for making a deck 
   - createDeck() function pulls from two arrays to create one deck array
@@ -88,8 +88,14 @@ function resetGame(){
     console.log(playerYHand)
 }
 
+function cardImage(){
+    centerDeck.style.backgroundImage = `url('${centerPile[centerPile.length-1].image.src}')`
+}
+function createIdentity() {
+    for(let ix=centerPile.length-1; ix<centerPile.length;ix++){
+    centerPile[ix] = new Card(centerPile[ix],document.getElementById(centerPile[ix]))}}
 
-/* Create draw function referring to player hands */
+    /* Create draw function referring to player hands */
 function draw(playerHand){
     centerPile.push(playerHand.pop());
     console.log(centerPile)
@@ -97,37 +103,42 @@ function draw(playerHand){
      /* assign entire deck to individual class instances */
      for(let ix=centerPile.length-1; ix<centerPile.length;ix++){
         centerPile[ix] = new Card(centerPile[ix],document.getElementById(centerPile[ix]))
-        console.log(cardArt)
         if(centerPile.length >=2){
                 if((centerPile[centerPile.length-1].identity.charAt(2)) === (centerPile[centerPile.length-2].identity.charAt(2))){ 
                     console.log('Exact match in value')
                     match = true 
-                }
-                else{
+                }else{
                     match = false    
-                }
+                }console.log(currentPlayer)
      }
-     function cardImage(){
-        centerDeck.style.backgroundImage = `url('${centerPile[centerPile.length-1].image.src}')`
-       
-    }cardImage()
-     console.log(centerPile[centerPile.length-1].image.src)
-     if(currentPlayer === "playerY"){
-        if(centerPile[centerPile.length-1].identity.charAt(2)=== 'K'){
-            centerPile.push
-     }
-     }
-    // 
-} 
-}
-
-
-
+     cardImage()
+     } 
+    }console.log(playerXHand,playerYHand)
+    
+    
+     if(currentPlayer === "playerX"){
+        if((centerPile[centerPile.length-1].identity.charAt(2))=== 'K'){
+            console.log('playerX got a KING')
+            // centerPile.push(playerXHand.pop())
+            // createIdentity()
+            // cardImage()
+            // delay()
+            // centerPile.push(playerXHand.pop())
+            // createIdentity()
+            // cardImage()
+            // delay()
+            // centerPile.push(playerXHand.pop())
+            // createIdentity()
+            // cardImage()
+            // delay()
+        }
+     } 
 
 function drawPlayerX(){
    if(currentPlayer === "playerX") {
     draw(playerXHand)
-    return currentPlayer = "playerY", centerPile
+    console.log('hello')
+    return centerPile
 }
 }
 
@@ -142,6 +153,20 @@ resetButton.addEventListener("click",resetGame)
 let ticks = 6
 let interval 
 
+function delay(){
+    ticks = 5
+    clearInterval(interval);
+    interval = setInterval(timerFunction, 100);
+    }
+
+function timerFunction(){
+    ticks--
+    console.log(ticks)
+    if(ticks === 0){
+        clearInterval(interval);
+    }
+    return ticks
+}
 
 drawXButton.addEventListener('click',function (){
     ticks = 5
@@ -154,17 +179,30 @@ function timerFunction(){
     console.log(ticks)
     if(ticks === 0){
         clearInterval(interval);
+        currentPlayer = "playerY"
         draw(playerYHand)
+        if(currentPlayer === "playerY"){
+            if((centerPile[centerPile.length-1].identity.charAt(2))=== 'K'){
+                console.log('playerY got a KING')
+                // centerPile.push(playerXHand.pop())
+                // createIdentity()
+                // cardImage()
+                // delay()
+                // centerPile.push(playerXHand.pop())
+                // createIdentity()
+                // cardImage()
+                // delay()
+                // centerPile.push(playerXHand.pop())
+                // createIdentity()
+                // cardImage()
+                // delay()
+         }
         currentPlayer = "playerX"
         console.log(currentPlayer)
         return currentPlayer
     }
-    else {
-        currentPlayer = "playerY"
-        console.log(currentPlayer)
-    }
     return ticks
-}
+}}
 
 /* Assign space bar to check identities and determine if cards are won or lost*/
 document.addEventListener('keyup', event => {
@@ -183,6 +221,7 @@ document.addEventListener('keyup', event => {
     }
   })
 
+  
   if(playerXHand.length === 52){
     console.log('You win!')
   }
