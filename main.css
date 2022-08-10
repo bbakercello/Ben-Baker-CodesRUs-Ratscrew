@@ -120,3 +120,14 @@ body{
     width: 112.5px;
     background: RGB(27 5 43);
 }
+
+.hiddenImageContainer {
+    max-height: 150px;
+    max-width: 112.5px;
+    object-fit: contain;
+}
+
+.image {
+    height: 150px;
+    width: 112.5px;
+}
