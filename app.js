@@ -13,6 +13,7 @@ let match = false
 const playerYDom = document.getElementById("hand-Y");
 const playerXDom = document.getElementById("hand-X");
 const centerDeck = document.getElementById("centerDeck");
+const centerContainer = document.getElementsByClassName("containerDeck")
 const slapButton = document.getElementById("slapButton");
 const drawXButton = document.getElementById("drawXButton");
 const gameStatus = document.getElementById("gameStatus");
@@ -83,13 +84,6 @@ function resetGame(){
     playerXHand = deck.slice(26, 52);
     console.log(playerXHand)
     console.log(playerYHand)
-
-/* assign entire deck to individual class instances */
-for(let ix=0; ix<deck.length;ix++){
-    deck[ix] = new Card(deck[ix],document.getElementById(deck[ix]))
-}
-
-    return deck;
 }
 
 
@@ -98,17 +92,32 @@ function draw(playerHand){
     centerPile.push(playerHand.pop());
     console.log(centerPile)
     console.log(playerHand)
-    if(centerPile.length >=2){
-        if(centerPile[centerPile.length-1].charAt(2) === centerPile[centerPile.length-2].charAt(2)){ 
-        match = true
-        }
-        else if(centerPile[centerPile.length-1].charAt(0)=== centerPile[centerPile.length-2].charAt(0)){
-            match = true
-        }
-        else{
-            match = false
-    }
-}
+     /* assign entire deck to individual class instances */
+     for(let ix=centerPile.length-1; ix<centerPile.length;ix++){
+        centerPile[ix] = new Card(centerPile[ix],document.getElementById(centerPile[ix]))
+        // console.log(centerPile[centerPile.length-1].image)
+        // console.log((centerPile[centerPile.length-1].identity.charAt(2)))
+        if(centerPile.length >=2){
+                if((centerPile[centerPile.length-1].identity.charAt(2)) === (centerPile[centerPile.length-2].identity.charAt(2))){ 
+                    console.log('Exact match in value')
+                    match = true 
+                }
+                else if((centerPile[centerPile.length-1].identity.charAt(0))=== (centerPile[centerPile.length-2].identity.charAt(0))){
+                    console.log('Exact match in suit')
+                    match = true
+                }
+                else{
+                    match = false    
+            }
+     }
+     }
+    // 
+} cardImage()
+// }
+
+
+function cardImage(){
+    (centerPile.length-1).image = centerDeck.style.background
 }
 
 function drawPlayerX(){
