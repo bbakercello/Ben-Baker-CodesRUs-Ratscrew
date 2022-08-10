@@ -13,12 +13,14 @@ let match = false
 const playerYDom = document.getElementById("hand-Y");
 const playerXDom = document.getElementById("hand-X");
 const centerDeck = document.getElementById("centerDeck");
+const cardArt = document.getElementById("cardCenter")
 const centerContainer = document.getElementsByClassName("containerDeck")
 const slapButton = document.getElementById("slapButton");
 const drawXButton = document.getElementById("drawXButton");
 const gameStatus = document.getElementById("gameStatus");
 const currentPlayerDom = document.getElementById("currentPlayer");
 const resetButton = document.getElementById("resetButton");
+
 
 /*Players
 - Create a Player class that accepts Player (X or Y) as paramters
@@ -95,30 +97,32 @@ function draw(playerHand){
      /* assign entire deck to individual class instances */
      for(let ix=centerPile.length-1; ix<centerPile.length;ix++){
         centerPile[ix] = new Card(centerPile[ix],document.getElementById(centerPile[ix]))
-        // console.log(centerPile[centerPile.length-1].image)
-        // console.log((centerPile[centerPile.length-1].identity.charAt(2)))
+        console.log(cardArt)
         if(centerPile.length >=2){
                 if((centerPile[centerPile.length-1].identity.charAt(2)) === (centerPile[centerPile.length-2].identity.charAt(2))){ 
                     console.log('Exact match in value')
                     match = true 
                 }
-                else if((centerPile[centerPile.length-1].identity.charAt(0))=== (centerPile[centerPile.length-2].identity.charAt(0))){
-                    console.log('Exact match in suit')
-                    match = true
-                }
                 else{
                     match = false    
-            }
+                }
+     }
+     function cardImage(){
+        centerDeck.style.backgroundImage = `url('${centerPile[centerPile.length-1].image.src}')`
+       
+    }cardImage()
+     console.log(centerPile[centerPile.length-1].image.src)
+     if(currentPlayer === "playerY"){
+        if(centerPile[centerPile.length-1].identity.charAt(2)=== 'K'){
+            centerPile.push
      }
      }
     // 
-} cardImage()
-// }
-
-
-function cardImage(){
-    (centerPile.length-1).image = centerDeck.style.background
+} 
 }
+
+
+
 
 function drawPlayerX(){
    if(currentPlayer === "playerX") {

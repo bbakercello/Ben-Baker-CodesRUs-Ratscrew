@@ -12,16 +12,14 @@ body{
     grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
     height: 100%;
     width: 100%;
-    border-style: solid;
-    border-color: red;
+    
 }
 
 .container-Y {
     grid-row: 2;
     grid-column: 1 / span 5;
     margin: 5px;
-    border-style: solid;
-    border-color: red;
+    
 }
 
 .faceCard-Y-flex {
@@ -30,9 +28,7 @@ body{
     gap: 10px;
     flex-direction: row;
     margin: 5px;
-    border-style: solid;
-    border-color: red;
-
+   
 }
 
 
@@ -40,9 +36,7 @@ body{
     grid-row: 3;
     grid-column: 1 / span 5;
     margin: 5px;
-    border-style: solid;
-    border-color: red;
-
+   
 }
 
 .centerRow-flex {
@@ -51,16 +45,13 @@ body{
     gap: 10px;
     flex-direction: row;
     margin: 5px;
-    border-style: solid;
-    border-color: red;
+
 }
 
 .container-X {
     grid-row: 4;
     grid-column: 1 / span 5;
     margin: 5px;
-    border-style: solid;
-    border-color: red;
 }
 
 .faceCard-X-flex {
@@ -69,9 +60,6 @@ body{
     gap: 10px;
     flex-direction: row;
     margin: 5px 5px 0 5px;
-    border-style: solid;
-    border-color: red;
-
 }
 
 .buttons {
@@ -79,8 +67,7 @@ body{
     grid-column: 1 / span 5;
     margin: 5px;
     padding: 30px;
-    border-style: solid;
-    border-color: red;
+
 }
 
 .buttons-flex {
@@ -89,8 +76,6 @@ body{
     gap: 10px;
     flex-direction: row;
     align-items: stretch;
-    border-style: solid;
-    border-color: red;
 }
 
 .slapButton {
@@ -114,11 +99,24 @@ body{
     width: 112.5px;
     background: RGB(113 90 93);
 }
+.conatinerDeck {
+    max-height: 150px;
+    max-width: 112.5px;
+    object-fit: contain;
+    display: flex;
+    grid-row: 6 / span 1;
+   margin-right: 50%;
+   position: relative;
+   
+}
 
-.cardCenter {
+#centerDeck {
     height: 150px;
     width: 112.5px;
-    background: RGB(27 5 43);
+    /* background-image: url('https://i.imgur.com/idAoo2z.png'); */
+    background-size: contain;
+    background-repeat: no-repeat;
+
 }
 
 .hiddenImageContainer {
@@ -129,6 +127,7 @@ body{
     grid-row: 6 / span 1;
    margin-right: 50%;
    position: relative;
+   display: none;
 }
 
 .image {
