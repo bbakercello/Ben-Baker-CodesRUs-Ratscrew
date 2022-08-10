@@ -8,7 +8,7 @@ body{
 
 .game-container {
     display:grid;
-    grid-template-rows: 3fr 3fr 3fr 3fr 1.5fr;
+    grid-template-rows: 3fr 3fr 3fr 3fr 1.5fr 3fr;
     grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
     height: 100%;
     width: 100%;
@@ -125,9 +125,18 @@ body{
     max-height: 150px;
     max-width: 112.5px;
     object-fit: contain;
+    display: flex;
+    grid-row: 6 / span 1;
+   margin-right: 50%;
+   position: relative;
 }
 
 .image {
     height: 150px;
-    width: 112.5px;
+    max-width: 112.5px;
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    display: flex;
+    flex-direction: row;
 }

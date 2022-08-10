@@ -33,9 +33,9 @@ class Player {
 }
 
 class Card {
-    constructor (identity){
+    constructor (identity,image){
         this.identity = identity
-        // image = document.getElementById(this.identity)
+        this.image = image
     }
 }
 
@@ -86,8 +86,9 @@ function resetGame(){
 
 /* assign entire deck to individual class instances */
 for(let ix=0; ix<deck.length;ix++){
-    deck[ix] = new Card(deck[ix])
+    deck[ix] = new Card(deck[ix],document.getElementById(deck[ix]))
 }
+
     return deck;
 }
 
