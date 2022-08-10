@@ -28,12 +28,14 @@ class Player {
     constructor (player, hand){
         this.player = player
         this.hand = hand
+        
     }
 }
 
 class Card {
     constructor (identity){
         this.identity = identity
+        // image = document.getElementById(this.identity)
     }
 }
 
@@ -70,8 +72,7 @@ function shuffleDeck(deck){
 } 
 
 /* Reset the game with resetGame
-   - refers to above functions
- */
+   - refers to above functions */
 function resetGame(){
     deck = [];
     centerPile = [];
@@ -91,8 +92,7 @@ for(let ix=0; ix<deck.length;ix++){
 }
 
 
-/* Create draw function referring to player hands 
- */
+/* Create draw function referring to player hands */
 function draw(playerHand){
     centerPile.push(playerHand.pop());
     console.log(centerPile)
@@ -121,15 +121,13 @@ function drawPlayerX(){
 */
 drawXButton.addEventListener("click", drawPlayerX)
 resetButton.addEventListener("click",resetGame)
-// slapButton.addEventListener("")
-
-
 
 /* Create a timer and callback function for determining computer move
    -Also intiatalizes computer draw
 */
 let ticks = 6
 let interval 
+
 
 drawXButton.addEventListener('click',function (){
     ticks = 5
@@ -154,6 +152,7 @@ function timerFunction(){
     return ticks
 }
 
+/* Assign space bar to check identities and determine if cards are won or lost*/
 document.addEventListener('keyup', event => {
     if (event.code === 'Space') {
       if(match === true){
