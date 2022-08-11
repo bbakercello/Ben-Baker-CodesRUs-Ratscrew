@@ -65,6 +65,10 @@ function createDeck() {
         for(let iy=0; iy<values.length; iy++){
         deck.push(suits[ix] + '-' + values[iy])
         }
+    }
+    for(let ix=0; ix<deck.length;ix++){
+        deck[ix] = new Card(deck[ix],document.getElementById(deck[ix]))
+        // console.log(deck)
     }return deck
     
     }
@@ -92,20 +96,10 @@ function cardImage(){
     centerDeck.style.backgroundImage = `url('${centerPile[centerPile.length-1].image.src}')`
 }
 
-/* Create Identity functions for face card rules - instead of centerPile, use playerXHand/playerYHand*/
-function createIdentity() {
-    for(let ix=centerPile.length-1; ix<centerPile.length;ix++){
-    centerPile[ix] = new Card(centerPile[ix],document.getElementById(centerPile[ix]))}}
-
-    /* Create draw function referring to player hands */
 function draw(playerHand){
     centerPile.push(playerHand.pop());
     console.log(centerPile)
     console.log(playerHand)
-     /* assign entire deck to individual class instances */
-     for(let ix=centerPile.length-1; ix<centerPile.length;ix++){
-        centerPile[ix] = new Card(centerPile[ix],document.getElementById(centerPile[ix]))
-        
         if(centerPile.length >=2){
                 if((centerPile[centerPile.length-1].identity.charAt(2)) === (centerPile[centerPile.length-2].identity.charAt(2))){ 
                     console.log('Exact match in value')
@@ -118,8 +112,9 @@ function draw(playerHand){
                     console.log('playerX got an ACE')
                     let xi = 0
                     while(xi<5){
-                        playerXHand.push(playerYHand.pop())
+                        centerPile.push(playerYHand.pop())
                         console.log(playerYHand);
+                        windCondition()
                         xi += 1;
                     }
                     timerFunction ()
@@ -129,8 +124,9 @@ function draw(playerHand){
                     console.log('playerX got a King')
                     let xi = 0
                     while(xi<4){
-                        playerXHand.push(playerYHand.pop())
+                        centerPile.push(playerYHand.pop())
                         console.log(playerYHand);
+                        windCondition()
                         xi += 1;
                     }
                     timerFunction ()
@@ -139,8 +135,9 @@ function draw(playerHand){
                 console.log('playerX got a Queen')
                 let xi = 0
                 while(xi<3){
-                    playerXHandcenterPile.push(playerYHand.pop())
+                    centerPile.push(playerYHand.pop())
                     console.log(playerYHand);
+                    windCondition()
                     xi += 1;
                 }
                 timerFunction ()
@@ -149,8 +146,9 @@ function draw(playerHand){
             console.log('playerX got a Jack')
             let xi = 0
             while(xi<2){
-                playerXHand.push(playerYHand.pop())
+                centerPileplayerXHand.push(playerYHand.pop())
                 console.log(playerYHand);
+                windCondition()
                 xi += 1;
             }
             timerFunction ()
@@ -159,10 +157,16 @@ function draw(playerHand){
      }
      cardImage()
      } 
-    }console.log(playerXHand,playerYHand)
+    console.log(playerXHand,playerYHand)
     
     
-     
+if(centerPile.length = 0){
+    if(currentPlayer="playerX"){
+        currentPlayer = "playerY"
+        timerFunction ()
+    }else if(currentPlayer ="playerY")
+        currentPlayer ="playerX"
+}    
      
 
 function drawPlayerX(){
@@ -186,20 +190,20 @@ let counts = 6
 let interval 
 let delayInterval
 
-function delay(){
-    counts = 5
-    clearInterval(delayInterval);
-    delayInterval = setInterval(faceCardWait, 500);
-    }
+// function delay(){
+//     counts = 5
+//     clearInterval(delayInterval);
+//     delayInterval = setInterval(faceCardWait, 500);
+//     }
 
-function faceCardWait(){
-    counts--
-    console.log(counts)
-    if(counts === 0){
-        clearInterval(delayInterval);
-    }
-    return counts
-}
+// function faceCardWait(){
+//     counts--
+//     console.log(counts)
+//     if(counts === 0){
+//         clearInterval(delayInterval);
+//     }
+//     return counts
+// }
 
 drawXButton.addEventListener('click',function (){
     ticks = 5
@@ -220,8 +224,9 @@ function timerFunction(){
                 let xi = 0
                 while(xi<5){
                     console.log('playerY got a ACE')
-                    playerYHand.push(playerXHand.pop())
+                    centerPile.push(playerXHand.pop())
                     console.log(playerXHand);
+                    windCondition()
                      xi += 1;;
                     
                 }
@@ -232,8 +237,9 @@ function timerFunction(){
             let xi = 0
             while(xi<4){
                 console.log('playerY got a King')
-                playerYHand.push(playerXHand.pop())
+                centerPile.push(playerXHand.pop())
                 console.log(playerXHand);
+                windCondition()
                 xi+=1
             }
             
@@ -243,8 +249,9 @@ function timerFunction(){
         let xi = 0
         while(xi<3){
             console.log('playerY got a Queen')
-            playerYHand.push(playerXHand.pop())
+            centerPile.push(playerXHand.pop())
             console.log(playerXHand);
+            windCondition()
             xi+=1
         }
         
@@ -254,8 +261,9 @@ function timerFunction(){
     let xi = 0
     while(xi<2){
         console.log('playerY got a Jack')
-        playerYHand.push(playerXHand.pop())
+        centerPile.push(playerXHand.pop())
         console.log(playerXHand);
+        windCondition()
         xi+=1
     }
     
@@ -284,11 +292,21 @@ document.addEventListener('keyup', event => {
     }
   })
 
-  
+  function windCondition(){
   if(playerXHand.length === 52){
     console.log('You win!')
+    resetGame()
   }
   if(playerYHand.length === 52){
     console.log('You lose!')
+    resetGame()
   }
-  
+  if(playerXHand.length === 0){
+    console.log('You lose!')
+    resetGame()
+  }
+  if(playerYHand.length === 0){
+    console.log('You lose!')
+    resetGame()
+  }
+}
