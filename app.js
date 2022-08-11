@@ -20,6 +20,7 @@ const drawXButton = document.getElementById("drawXButton");
 const gameStatus = document.getElementById("gameStatus");
 const currentPlayerDom = document.getElementById("currentPlayer");
 const resetButton = document.getElementById("resetButton");
+const roundStatus = document.getElementById("roundStatus")
 
 
 /*Players
@@ -77,7 +78,10 @@ function shuffleDeck(deck){
     deck.sort(() => Math.random() - 0.5);
     return deck
 } 
-
+function showPoints(){
+    playerXDom.innerText = `Player X ${playerXHand.length}`
+    playerYDom.innerText = `Computer ${playerYHand.length}`
+}
 /* Reset the game with resetGame
    - refers to above functions */
 function resetGame(){
@@ -90,6 +94,9 @@ function resetGame(){
     playerXHand = deck.slice(26, 52);
     console.log(playerXHand)
     console.log(playerYHand)
+    centerDeck.style.backgroundImage = "";
+    showPoints()
+    gameStatus.innerText = "New Game. Cards shuffled! Click Draw to begin"
 }
 
 function cardImage(){
@@ -97,6 +104,7 @@ function cardImage(){
 }
 
 function draw(playerHand){
+    currentPlayerDom.innerHTML = ""
     centerPile.push(playerHand.pop());
     console.log(centerPile)
     console.log(playerHand)
@@ -104,6 +112,14 @@ function draw(playerHand){
                 if((centerPile[centerPile.length-1].identity.charAt(2)) === (centerPile[centerPile.length-2].identity.charAt(2))){ 
                     console.log('Exact match in value')
                     match = true 
+                }else if((centerPile[centerPile.length-1].identity.charAt(2)) === 'A'){
+                    match = false
+                }else if((centerPile[centerPile.length-1].identity.charAt(2)) === 'K'){
+                    match = false
+                }else if((centerPile[centerPile.length-1].identity.charAt(2)) === 'Q'){
+                    match = false
+                }else if((centerPile[centerPile.length-1].identity.charAt(2)) === 'J'){
+                    match = false
                 }else{
                     match = false    
                 }console.log(currentPlayer)
@@ -112,50 +128,48 @@ function draw(playerHand){
                     console.log('playerX got an ACE')
                     let xi = 0
                     while(xi<5){
-                        centerPile.push(playerYHand.pop())
+                        centerPile.unshift(playerYHand.pop())
                         console.log(playerYHand);
                         windCondition()
                         xi += 1;
                     }
-                    timerFunction ()
                  }
 
                 if((centerPile[centerPile.length-1].identity.charAt(2))=== 'K'){
                     console.log('playerX got a King')
                     let xi = 0
                     while(xi<4){
-                        centerPile.push(playerYHand.pop())
+                        centerPile.unshift(playerYHand.pop())
                         console.log(playerYHand);
                         windCondition()
                         xi += 1;
                     }
-                    timerFunction ()
              }
              if((centerPile[centerPile.length-1].identity.charAt(2))=== 'Q'){
                 console.log('playerX got a Queen')
                 let xi = 0
                 while(xi<3){
-                    centerPile.push(playerYHand.pop())
+                    centerPile.unshift(playerYHand.pop())
                     console.log(playerYHand);
                     windCondition()
                     xi += 1;
                 }
-                timerFunction ()
          }
          if((centerPile[centerPile.length-1].identity.charAt(2))=== 'J'){
             console.log('playerX got a Jack')
             let xi = 0
             while(xi<2){
-                centerPileplayerXHand.push(playerYHand.pop())
+                centerPile.push(playerYHand.pop())
                 console.log(playerYHand);
-                windCondition()
                 xi += 1;
             }
-            timerFunction ()
         }
-                }
+            }
      }
      cardImage()
+     showPoints()
+     windCondition()
+     timerFunction ()
      } 
     console.log(playerXHand,playerYHand)
     
@@ -173,6 +187,7 @@ function drawPlayerX(){
    if(currentPlayer === "playerX") {
     draw(playerXHand)
     console.log('hello')
+    windCondition()
     return centerPile
 }
 }
@@ -180,30 +195,14 @@ function drawPlayerX(){
 /* Assign buttons to Draw and Reset functions by addEventListener()
 */
 drawXButton.addEventListener("click", drawPlayerX)
+
 resetButton.addEventListener("click",resetGame)
 
 /* Create a timer and callback function for determining computer move
    -Also intiatalizes computer draw
 */
 let ticks = 6
-let counts = 6
 let interval 
-let delayInterval
-
-// function delay(){
-//     counts = 5
-//     clearInterval(delayInterval);
-//     delayInterval = setInterval(faceCardWait, 500);
-//     }
-
-// function faceCardWait(){
-//     counts--
-//     console.log(counts)
-//     if(counts === 0){
-//         clearInterval(delayInterval);
-//     }
-//     return counts
-// }
 
 drawXButton.addEventListener('click',function (){
     ticks = 5
@@ -212,6 +211,7 @@ drawXButton.addEventListener('click',function (){
     })
 
 function timerFunction(){
+    gameStatus.innerText = "Computer is drawing their Card..."
     ticks--
     console.log(ticks)
     if(ticks === 0){
@@ -220,68 +220,104 @@ function timerFunction(){
         draw(playerYHand)
         if(currentPlayer === "playerY"){
             if((centerPile[centerPile.length-1].identity.charAt(2))=== 'A'){
+                currentPlayerDom.innerText = "Uh oh! Computer drew an ACE. You lose 4 cards"
                 console.log('playerY got a ACE')
                 let xi = 0
                 while(xi<5){
                     console.log('playerY got a ACE')
-                    centerPile.push(playerXHand.pop())
+                    centerPile.unshift(playerXHand.pop())
                     console.log(playerXHand);
-                    windCondition()
-                     xi += 1;;
-                    
+                     xi += 1;
                 }
                 
          }
-         if((centerPile[centerPile.length-1].identity.charAt(2))=== 'K'){
-            console.log('playerY got a King')
-            let xi = 0
-            while(xi<4){
-                console.log('playerY got a King')
-                centerPile.push(playerXHand.pop())
-                console.log(playerXHand);
-                windCondition()
-                xi+=1
+    if((centerPile[centerPile.length-1].identity.charAt(2))=== 'K'){
+        console.log('playerY got a King')
+        currentPlayerDom.innerText = "Wow! Computer drew a King. You lose 3 cards"
+        let xi = 0
+         while (xi<4){
+                    console.log('playerY got a King')
+                    centerPile.unshift(playerXHand.pop())
+                    cardImage()
+                    console.log(playerXHand);
+                    xi +=1;
+                }
+                
             }
-            
+             
      }
      if((centerPile[centerPile.length-1].identity.charAt(2))=== 'Q'){
         console.log('playerY got a Queen')
+        currentPlayerDom.innerText = "Wow! Computer drew a Queen. You lose 2 cards"
         let xi = 0
         while(xi<3){
             console.log('playerY got a Queen')
-            centerPile.push(playerXHand.pop())
+            centerPile.unshift(playerXHand.pop())
             console.log(playerXHand);
-            windCondition()
             xi+=1
         }
         
  }
  if((centerPile[centerPile.length-1].identity.charAt(2))=== 'J'){
     console.log('playerY got a Jack')
+    currentPlayerDom.innerText = "Computer drew a Jack. You lose 1 cards"
     let xi = 0
     while(xi<2){
         console.log('playerY got a Jack')
-        centerPile.push(playerXHand.pop())
+        centerPile.unshift(playerXHand.pop())
         console.log(playerXHand);
-        windCondition()
         xi+=1
     }
     
 }
         currentPlayer = "playerX"
+        gameStatus.innerText = "Your turn! Click Draw"
         console.log(currentPlayer)
         return currentPlayer
     }
-    // return ticks
-}}
+    showPoints()
+    windCondition()
+}
 
+/* Set up timer for computer to slap after 3 seconds */
+let clicks = 2
+let interval2 
+
+if (match === true) {
+    function computerSlap (){
+    clearInterval(interval2);
+    interval2 = setInterval(slapTimer, 500);
+    }
+}
+function slapTimer(){
+    clicks--
+    console.log(clicks)
+    if(clicks === 0){
+        clearInterval(interval2);
+        console.log('lose cards');
+        playerYHand.push(centerPile);
+        shuffleDeck(playerYHand);
+        console.log(playerYHand)
+        console.log(playerXHand)
+        centerDeck.style.backgroundImage = "";
+        roundStatus.innterText = "You lose this pile"
+        showPoints()
+        currentPlayer = 'playerX'
+        windCondition()
+    }
+                
+}
 /* Assign space bar to check identities and determine if cards are won or lost*/
-document.addEventListener('keyup', event => {
-    if (event.code === 'Space') {
+slapButton.addEventListener('click', event => {
+    // if (event.code === 'Space') {
       if(match === true){
         console.log('win cards');
         playerXHand.push(centerPile);
         shuffleDeck(playerXHand);
+        centerDeck.style.backgroundImage = "";
+        roundStatus.innterText = "You win this pile"
+        playerXDom.innerText = `Player X ${playerXHand.length}`
+        playerYDom.innerText = `Computer ${playerYHand.length}`
       }
       if(match === false)
         console.log('lose cards');
@@ -289,24 +325,36 @@ document.addEventListener('keyup', event => {
         shuffleDeck(playerYHand);
         console.log(playerYHand)
         console.log(playerXHand)
+        centerDeck.style.backgroundImage = "";
+        roundStatus.innterText = "You lose this pile"
+        playerXDom.innerText = `Player X ${playerXHand.length}`
+        playerYDom.innerText = `Computer ${playerYHand.length}`
     }
-  })
+  )
 
   function windCondition(){
   if(playerXHand.length === 52){
     console.log('You win!')
+    playerXDom.innerText = `Player X ${playerXHand.length}`
+    playerYDom.innerText = `Computer ${playerYHand.length}`
     resetGame()
   }
   if(playerYHand.length === 52){
     console.log('You lose!')
+    playerXDom.innerText = `Player X ${playerXHand.length}`
+    playerYDom.innerText = `Computer ${playerYHand.length}`
     resetGame()
   }
   if(playerXHand.length === 0){
     console.log('You lose!')
+    playerXDom.innerText = `Player X ${playerXHand.length}`
+    playerYDom.innerText = `Computer ${playerYHand.length}`
     resetGame()
   }
   if(playerYHand.length === 0){
     console.log('You lose!')
+    playerXDom.innerText = `Player X ${playerXHand.length}`
+    playerYDom.innerText = `Computer ${playerYHand.length}`
     resetGame()
   }
 }
