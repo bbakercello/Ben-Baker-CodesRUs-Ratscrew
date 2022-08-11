@@ -151,21 +151,23 @@ resetButton.addEventListener("click",resetGame)
    -Also intiatalizes computer draw
 */
 let ticks = 6
+let counts = 6
 let interval 
+let delayInterval
 
 function delay(){
-    ticks = 5
-    clearInterval(interval);
-    interval = setInterval(timerFunction, 100);
+    counts = 5
+    clearInterval(delayInterval);
+    delayInterval = setInterval(faceCardWait, 500);
     }
 
-function timerFunction(){
-    ticks--
-    console.log(ticks)
-    if(ticks === 0){
-        clearInterval(interval);
+function faceCardWait(){
+    counts--
+    console.log(counts)
+    if(counts === 0){
+        clearInterval(delayInterval);
     }
-    return ticks
+    // return counts
 }
 
 drawXButton.addEventListener('click',function (){
@@ -182,26 +184,67 @@ function timerFunction(){
         currentPlayer = "playerY"
         draw(playerYHand)
         if(currentPlayer === "playerY"){
-            if((centerPile[centerPile.length-1].identity.charAt(2))=== 'K'){
-                console.log('playerY got a KING')
-                // centerPile.push(playerXHand.pop())
-                // createIdentity()
-                // cardImage()
-                // delay()
-                // centerPile.push(playerXHand.pop())
-                // createIdentity()
-                // cardImage()
-                // delay()
-                // centerPile.push(playerXHand.pop())
-                // createIdentity()
-                // cardImage()
-                // delay()
+            if((centerPile[centerPile.length-1].identity.charAt(2))=== 'A'){
+                console.log('playerY got a ACE')
+                let xi = 0
+                while(xi<5){
+                    console.log('playerY got a ACE')
+                    centerPile.push(playerXHand.pop())
+                    createIdentity();
+                    delay();
+                    cardImage();
+                    console.log(playerXHand);
+                    xi += 1;
+                }
+                
          }
+         if((centerPile[centerPile.length-1].identity.charAt(2))=== 'K'){
+            console.log('playerY got a King')
+            let xi = 0
+            while(xi<4){
+                console.log('playerY got a King')
+                centerPile.push(playerXHand.pop())
+                createIdentity();
+                delay();
+                cardImage();
+                console.log(playerXHand);
+                xi += 1;
+            }
+            
+     }
+     if((centerPile[centerPile.length-1].identity.charAt(2))=== 'Q'){
+        console.log('playerY got a Queen')
+        let xi = 0
+        while(xi<3){
+            console.log('playerY got a Queen')
+            centerPile.push(playerXHand.pop())
+            createIdentity();
+            delay();
+            cardImage();
+            console.log(playerXHand);
+            xi += 1;
+        }
+        
+ }
+ if((centerPile[centerPile.length-1].identity.charAt(2))=== 'J'){
+    console.log('playerY got a Jack')
+    let xi = 0
+    while(xi<2){
+        console.log('playerY got a Jack')
+        centerPile.push(playerXHand.pop())
+        createIdentity();
+        delay();
+        cardImage();
+        console.log(playerXHand);
+        xi += 1;
+    }
+    
+}
         currentPlayer = "playerX"
         console.log(currentPlayer)
         return currentPlayer
     }
-    return ticks
+    // return ticks
 }}
 
 /* Assign space bar to check identities and determine if cards are won or lost*/
