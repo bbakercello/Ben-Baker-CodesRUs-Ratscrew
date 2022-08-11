@@ -91,6 +91,8 @@ function resetGame(){
 function cardImage(){
     centerDeck.style.backgroundImage = `url('${centerPile[centerPile.length-1].image.src}')`
 }
+
+/* Create Identity functions for face card rules - instead of centerPile, use playerXHand/playerYHand*/
 function createIdentity() {
     for(let ix=centerPile.length-1; ix<centerPile.length;ix++){
     centerPile[ix] = new Card(centerPile[ix],document.getElementById(centerPile[ix]))}}
@@ -103,6 +105,7 @@ function draw(playerHand){
      /* assign entire deck to individual class instances */
      for(let ix=centerPile.length-1; ix<centerPile.length;ix++){
         centerPile[ix] = new Card(centerPile[ix],document.getElementById(centerPile[ix]))
+        
         if(centerPile.length >=2){
                 if((centerPile[centerPile.length-1].identity.charAt(2)) === (centerPile[centerPile.length-2].identity.charAt(2))){ 
                     console.log('Exact match in value')
@@ -110,29 +113,57 @@ function draw(playerHand){
                 }else{
                     match = false    
                 }console.log(currentPlayer)
+            if(currentPlayer === "playerX"){
+                if((centerPile[centerPile.length-1].identity.charAt(2))=== 'A'){
+                    console.log('playerX got an ACE')
+                    let xi = 0
+                    while(xi<5){
+                        playerXHand.push(playerYHand.pop())
+                        console.log(playerYHand);
+                        xi += 1;
+                    }
+                    timerFunction ()
+                 }
+
+                if((centerPile[centerPile.length-1].identity.charAt(2))=== 'K'){
+                    console.log('playerX got a King')
+                    let xi = 0
+                    while(xi<4){
+                        playerXHand.push(playerYHand.pop())
+                        console.log(playerYHand);
+                        xi += 1;
+                    }
+                    timerFunction ()
+             }
+             if((centerPile[centerPile.length-1].identity.charAt(2))=== 'Q'){
+                console.log('playerX got a Queen')
+                let xi = 0
+                while(xi<3){
+                    playerXHandcenterPile.push(playerYHand.pop())
+                    console.log(playerYHand);
+                    xi += 1;
+                }
+                timerFunction ()
+         }
+         if((centerPile[centerPile.length-1].identity.charAt(2))=== 'J'){
+            console.log('playerX got a Jack')
+            let xi = 0
+            while(xi<2){
+                playerXHand.push(playerYHand.pop())
+                console.log(playerYHand);
+                xi += 1;
+            }
+            timerFunction ()
+        }
+                }
      }
      cardImage()
      } 
     }console.log(playerXHand,playerYHand)
     
     
-     if(currentPlayer === "playerX"){
-        if((centerPile[centerPile.length-1].identity.charAt(2))=== 'K'){
-            console.log('playerX got a KING')
-            // centerPile.push(playerXHand.pop())
-            // createIdentity()
-            // cardImage()
-            // delay()
-            // centerPile.push(playerXHand.pop())
-            // createIdentity()
-            // cardImage()
-            // delay()
-            // centerPile.push(playerXHand.pop())
-            // createIdentity()
-            // cardImage()
-            // delay()
-        }
-     } 
+     
+     
 
 function drawPlayerX(){
    if(currentPlayer === "playerX") {
@@ -167,7 +198,7 @@ function faceCardWait(){
     if(counts === 0){
         clearInterval(delayInterval);
     }
-    // return counts
+    return counts
 }
 
 drawXButton.addEventListener('click',function (){
@@ -189,12 +220,10 @@ function timerFunction(){
                 let xi = 0
                 while(xi<5){
                     console.log('playerY got a ACE')
-                    centerPile.push(playerXHand.pop())
-                    createIdentity();
-                    delay();
-                    cardImage();
+                    playerYHand.push(playerXHand.pop())
                     console.log(playerXHand);
-                    xi += 1;
+                     xi += 1;;
+                    
                 }
                 
          }
@@ -203,12 +232,9 @@ function timerFunction(){
             let xi = 0
             while(xi<4){
                 console.log('playerY got a King')
-                centerPile.push(playerXHand.pop())
-                createIdentity();
-                delay();
-                cardImage();
+                playerYHand.push(playerXHand.pop())
                 console.log(playerXHand);
-                xi += 1;
+                xi+=1
             }
             
      }
@@ -217,12 +243,9 @@ function timerFunction(){
         let xi = 0
         while(xi<3){
             console.log('playerY got a Queen')
-            centerPile.push(playerXHand.pop())
-            createIdentity();
-            delay();
-            cardImage();
+            playerYHand.push(playerXHand.pop())
             console.log(playerXHand);
-            xi += 1;
+            xi+=1
         }
         
  }
@@ -231,12 +254,9 @@ function timerFunction(){
     let xi = 0
     while(xi<2){
         console.log('playerY got a Jack')
-        centerPile.push(playerXHand.pop())
-        createIdentity();
-        delay();
-        cardImage();
+        playerYHand.push(playerXHand.pop())
         console.log(playerXHand);
-        xi += 1;
+        xi+=1
     }
     
 }
@@ -252,12 +272,12 @@ document.addEventListener('keyup', event => {
     if (event.code === 'Space') {
       if(match === true){
         console.log('win cards');
-        playerXHand.push(playerYHand.pop());
+        playerXHand.push(centerPile);
         shuffleDeck(playerXHand);
       }
       if(match === false)
         console.log('lose cards');
-        playerYHand.push(playerXHand.pop());
+        playerYHand.push(centerPile);
         shuffleDeck(playerYHand);
         console.log(playerYHand)
         console.log(playerXHand)
@@ -271,3 +291,4 @@ document.addEventListener('keyup', event => {
   if(playerYHand.length === 52){
     console.log('You lose!')
   }
+  
