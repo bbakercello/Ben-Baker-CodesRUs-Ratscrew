@@ -6,6 +6,11 @@ body{
 
 }
 
+.title {
+    text-align: center;
+    grid-column: 3;
+}
+
 .game-container {
     display:grid;
     grid-template-rows: 3fr 3fr 3fr 3fr 1.5fr 3fr;
@@ -19,6 +24,7 @@ body{
     grid-row: 2;
     grid-column: 3 / span 5;
     margin: 5px;
+    text-align: center;
     
 }
 
@@ -28,9 +34,12 @@ body{
     gap: 10px;
     flex-direction: row;
     margin: 5px;
+    
    
 }
-
+.containerDeck {
+    justify-content: flex-start;
+}
 
 .container-centerRow {
     grid-row: 3;
